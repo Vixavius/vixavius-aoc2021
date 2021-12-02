@@ -1,5 +1,7 @@
 mod day01part1;
 mod day01part2;
+mod day02part1;
+mod day02part2;
 
 use pad::PadStr;
 use std::time::{Duration, Instant};
@@ -14,6 +16,8 @@ pub fn main() {
     let problems: Vec<&dyn Fn() -> i128> = vec![
         &day01part1::run,
         &day01part2::run,
+        &day02part1::run,
+        &day02part2::run,
     ];
     let mut avg_runtimes: Vec<f64> = vec![];
     let mut outputs: Vec<String> = vec![];
@@ -29,7 +33,6 @@ pub fn main() {
         let result = problem();
 
         avg_runtimes.push(format(average(runtimes)));
-        //start = Instant::now();
 
         let mut output: String = String::from("Day ") + &(i / 2 + 1).to_string();
         output = output.pad_to_width(7);
