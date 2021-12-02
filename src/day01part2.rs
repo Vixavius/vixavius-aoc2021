@@ -11,7 +11,6 @@ use std::io::{self, BufRead};
 use std::path::Path;
 
 pub fn run() -> i128 {
-    // Vector of numbers
     let mut values = vec![];
 
     // File hosts must exist in current path before this produces output

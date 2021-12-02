@@ -21,12 +21,12 @@ struct DiveCommand {
 }
 
 pub fn run() -> i128 {
-    // Vector of Dive Vectors
+    // Vector of Dive Commands
     let mut values: Vec<DiveCommand> = vec![];
 
     // File hosts must exist in current path before this produces output
     if let Ok(lines) = read_lines("./input/day02.txt") {
-        // Parse each line as integer from text file, force unwrapping Result
+        // Parse each line as string from text file, force unwrapping Result
         for line in lines {
             if let Ok(ip) = line {
                 let splits: Vec<&str> = ip.split(" ").collect();
