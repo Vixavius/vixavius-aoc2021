@@ -6,6 +6,8 @@ mod day03part1;
 mod day03part2;
 mod day04part1;
 mod day04part2;
+mod day05part1;
+mod day05part2;
 
 use pad::PadStr;
 use std::time::{Duration, Instant};
@@ -26,19 +28,21 @@ pub fn main() {
         &day03part2::run,
         &day04part1::run,
         &day04part2::run,
+        &day05part1::run,
+        &day05part2::run,
     ];
     let mut avg_runtimes: Vec<f64> = vec![];
     let mut outputs: Vec<String> = vec![];
 
     for (i, problem) in problems.iter().enumerate() {
         let mut runtimes: Vec<f64> = vec![];
+        let mut result: i128 = 0;
 
         for _i in 0..NUMBER_OF_RUNS {
             start = Instant::now();
-            problem();
+            result = problem();
             runtimes.push(runtime(start, &current));
         }
-        let result = problem();
 
         avg_runtimes.push(format(average(runtimes)));
 
