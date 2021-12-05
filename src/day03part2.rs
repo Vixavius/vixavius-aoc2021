@@ -57,8 +57,6 @@ pub fn run() -> i128 {
         }
 
         co2_numbers.retain(|x| x.to_string().chars().nth(i).unwrap() == c);
-
-        println!("co2 numbers {}", co2_numbers.len());
         i += 1;
     }
 

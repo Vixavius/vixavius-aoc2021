@@ -4,6 +4,8 @@ mod day02part1;
 mod day02part2;
 mod day03part1;
 mod day03part2;
+mod day04part1;
+mod day04part2;
 
 use pad::PadStr;
 use std::time::{Duration, Instant};
@@ -22,6 +24,8 @@ pub fn main() {
         &day02part2::run,
         &day03part1::run,
         &day03part2::run,
+        &day04part1::run,
+        &day04part2::run,
     ];
     let mut avg_runtimes: Vec<f64> = vec![];
     let mut outputs: Vec<String> = vec![];
