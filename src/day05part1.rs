@@ -18,7 +18,7 @@ struct LineSegment {
 }
 
 pub fn run() -> i128 {
-    // Vector of bingo boards 
+    // Vector of bingo boards
     let mut linesegments: Vec<LineSegment> = vec![];
     let mut grid = [[0u8; 1000]; 1000];
 
@@ -38,8 +38,9 @@ pub fn run() -> i128 {
                         linesegments.push(LineSegment {
                             x1: left[0].parse::<u32>().unwrap(),
                             x2: right[0].parse::<u32>().unwrap(),
-                            y1: left[1].parse::<u32>().unwrap(), 
-                            y2: right[1].parse::<u32>().unwrap() });
+                            y1: left[1].parse::<u32>().unwrap(),
+                            y2: right[1].parse::<u32>().unwrap(),
+                        });
                     }
                 }
             }
@@ -47,25 +48,25 @@ pub fn run() -> i128 {
     } else {
         println!("Failed to open file");
     }
-    
+
     for segment in linesegments {
-      // Only consider horizontal or vertical lines
-      if segment.y1 == segment.y2 {
-          for i in std::cmp::min(segment.x1, segment.x2)..=std::cmp::max(segment.x1, segment.x2) {
-            grid[i as usize][segment.y1 as usize] += 1;
-          }
-      } else if segment.x1 == segment.x2 {
-          for i in std::cmp::min(segment.y1, segment.y2)..=std::cmp::max(segment.y1, segment.y2) {
-              grid[segment.x1 as usize][i as usize] += 1;
-          }
-      }
+        // Only consider horizontal or vertical lines
+        if segment.y1 == segment.y2 {
+            for i in std::cmp::min(segment.x1, segment.x2)..=std::cmp::max(segment.x1, segment.x2) {
+                grid[i as usize][segment.y1 as usize] += 1;
+            }
+        } else if segment.x1 == segment.x2 {
+            for i in std::cmp::min(segment.y1, segment.y2)..=std::cmp::max(segment.y1, segment.y2) {
+                grid[segment.x1 as usize][i as usize] += 1;
+            }
+        }
     }
 
     // Calculate the # of points overlapping
     let mut points_overlapping: i128 = 0;
 
     for i in 0..1000 {
-        for j in 0.. 1000 {
+        for j in 0..1000 {
             if grid[i][j] > 1 {
                 points_overlapping += 1;
             }

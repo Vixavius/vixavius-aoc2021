@@ -1,33 +1,28 @@
 // ------------------------------------------------------------------------------------------------
-// Advent of Code 2021 - Day 3 - Part 1
+// Advent of Code 2021 - Day 7 - Part 1
 // ------------------------------------------------------------------------------------------------
-// https://adventofcode.com/2021/day/3
+// https://adventofcode.com/2021/day/7
 // ------------------------------------------------------------------------------------------------
 // mvr@michaelvanryn.com
-// December 3, 2021
+// December 7, 2021
 // ------------------------------------------------------------------------------------------------
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
 pub fn run() -> i128 {
-    // Vector of Dive Commands
-    let mut digits: Vec<i32> = vec![];
+    let mut positions: Vec<u64> = vec![];
 
     // File hosts must exist in current path before this produces output
-    if let Ok(lines) = read_lines("./input/day03.txt") {
+    if let Ok(lines) = read_lines("./input/day07.txt") {
         // Parse each line as string from text file, force unwrapping Result
         for line in lines {
             if let Ok(ip) = line {
-                for (i, c) in ip.chars().enumerate() {
-                    if i as i32 > digits.len() as i32 - 1 {
-                        digits.push(0);
-                    }
-                    if c == '1' {
-                        digits[i] += 1;
-                    } else {
-                        digits[i] -= 1;
-                    }
+                let split: Vec<&str> = ip.split(",").collect();
+
+                // Input parsing
+                for number in split {
+                    positions.push(number.parse::<u64>().unwrap());
                 }
             }
         }
@@ -35,20 +30,38 @@ pub fn run() -> i128 {
         println!("Failed to open file");
     }
 
-    let mut gamma: u32 = 0;
-    let mut epsilon: u32 = 0;
+    // Brute force approach
+    let mut fuels: Vec<u64> = vec![];
+    let mut fuel;
+    let mut max: u64 = 0;
+    let mut cheapest: u64 = std::u64::MAX;
 
-    for digit in digits {
-        gamma = gamma << 1;
-        epsilon = epsilon << 1;
-        if digit > 0 {
-            gamma += 1;
-        } else if digit < 0 {
-            epsilon += 1;
+    for position in positions.iter() {
+        if position > &max {
+            max = *position;
         }
     }
 
-    return (gamma * epsilon) as i128;
+    // For each possible position
+    for i in 0..=max {
+        fuel = 0;
+
+        // Sum all required fuel
+        for position in positions.iter() {
+            fuel += i64::abs(*position as i64 - i as i64) as u64;
+        }
+
+        fuels.push(fuel);
+    }
+
+    // Find the smallest fuel used
+    for fuel in fuels {
+        if fuel < cheapest {
+            cheapest = fuel;
+        }
+    }
+
+    return cheapest as i128;
 }
 
 // The output is wrapped in a Result to allow matching on errors

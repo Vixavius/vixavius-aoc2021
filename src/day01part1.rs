@@ -30,7 +30,7 @@ pub fn run() -> i128 {
 
     for i in values.iter().skip(1) {
         if i > &last {
-          n += 1;
+            n += 1;
         }
         last = *i;
     }

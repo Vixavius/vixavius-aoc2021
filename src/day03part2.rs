@@ -26,7 +26,6 @@ pub fn run() -> i128 {
         println!("Failed to open file");
     }
 
-
     // Oxygen Generator Rating - 1
     let mut oxygen_numbers = numbers.clone();
     let mut i: usize = 0;
@@ -38,7 +37,7 @@ pub fn run() -> i128 {
         if count >= 0 {
             c = '1'
         }
-        
+
         oxygen_numbers.retain(|x| x.to_string().chars().nth(i).unwrap() == c);
 
         i += 1;
@@ -64,9 +63,9 @@ pub fn run() -> i128 {
         let oxygen_rating = isize::from_str_radix(oxygen_numbers[0].as_str(), 2).unwrap();
         let scrubber_rating = isize::from_str_radix(co2_numbers[0].as_str(), 2).unwrap();
 
-      return (oxygen_rating * scrubber_rating) as i128;
+        return (oxygen_rating * scrubber_rating) as i128;
     }
-    
+
     return 0;
 }
 
@@ -74,7 +73,7 @@ fn count_digits(numbers: &Vec<String>, i: usize) -> i32 {
     let mut count: i32 = 0;
 
     for n in numbers {
-        if i < n.len() { 
+        if i < n.len() {
             if n.to_string().chars().nth(i).unwrap() == '0' {
                 count -= 1;
             } else {

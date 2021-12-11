@@ -29,9 +29,9 @@ pub fn run() -> i128 {
 
     for (i, &x) in values.iter().enumerate() {
         if i >= 3 {
-          if x > values[i - 3] {
-              n += 1;
-          }
+            if x > values[i - 3] {
+                n += 1;
+            }
         }
     }
 

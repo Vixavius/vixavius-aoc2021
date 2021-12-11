@@ -12,7 +12,10 @@ use std::path::Path;
 
 #[derive(Debug)]
 enum Direction {
-    Up, Down, Forward, None,
+    Up,
+    Down,
+    Forward,
+    None,
 }
 
 struct DiveCommand {
@@ -38,8 +41,11 @@ pub fn run() -> i128 {
                         "forward" => Direction::Forward,
                         _ => Direction::None,
                     };
-                    
-                    values.push(DiveCommand {direction: direction, value: splits[1].parse::<u32>().unwrap()});
+
+                    values.push(DiveCommand {
+                        direction: direction,
+                        value: splits[1].parse::<u32>().unwrap(),
+                    });
                     //println!("{:?} {}", values[values.len() - 1].direction, values[values.len() - 1].value);
                 }
             }
@@ -54,12 +60,13 @@ pub fn run() -> i128 {
 
     for command in values {
         match command.direction {
-            Direction::Up => {aim -= command.value as i32},
-            Direction::Down => {aim += command.value as i32},
+            Direction::Up => aim -= command.value as i32,
+            Direction::Down => aim += command.value as i32,
             Direction::Forward => {
                 position += command.value as i32;
-                depth += aim * command.value as i32},
-            _ => {},
+                depth += aim * command.value as i32
+            }
+            _ => {}
         }
     }
 
