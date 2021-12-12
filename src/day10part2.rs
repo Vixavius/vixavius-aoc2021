@@ -13,13 +13,12 @@ use std::path::Path;
 #[derive(PartialEq)]
 enum SequenceValidity {
     Unknown,
-    Incomplete,
     Corrupt,
 }
 
 struct Sequence {
     pattern: Vec<char>,
-    state: SequenceValidity
+    state: SequenceValidity,
 }
 
 pub fn run() -> i128 {
@@ -37,16 +36,19 @@ pub fn run() -> i128 {
                     lines.push(c);
                 }
 
-                patterns.push(Sequence { pattern: lines.clone(), state: SequenceValidity::Unknown});
+                patterns.push(Sequence {
+                    pattern: lines.clone(),
+                    state: SequenceValidity::Unknown,
+                });
             }
         }
     } else {
         println!("Failed to open file");
     }
 
-    let mut scores: Vec<u64> =vec![];
+    let mut scores: Vec<u64> = vec![];
 
-    for line in patterns.iter_mut(){
+    for line in patterns.iter_mut() {
         let mut stack: Vec<char> = vec![];
 
         for (i, c) in line.pattern.iter().enumerate() {
@@ -69,25 +71,7 @@ pub fn run() -> i128 {
             if *c == '(' || *c == '[' || *c == '{' || *c == '<' {
                 stack.push(*c)
             } else if stack.len() > 0 {
-                if *c == ')' {
-                    if *c == expected {
-                        stack.pop();
-                    } else {
-                        line.state = SequenceValidity::Corrupt;
-                    }
-                } else if *c == ']' {
-                    if *c == expected {
-                        stack.pop();
-                    } else {
-                        line.state = SequenceValidity::Corrupt;
-                    }
-                } else if *c == '}' {
-                    if *c == expected {
-                        stack.pop(); 
-                    } else {
-                        line.state = SequenceValidity::Corrupt;
-                    }
-                } else if *c == '>' {
+                if *c == ')' || *c == ']' || *c == '}' || *c == '>' {
                     if *c == expected {
                         stack.pop();
                     } else {
@@ -98,8 +82,6 @@ pub fn run() -> i128 {
 
             // At the last index, if the sequence is not corrupt, it must be incomplete
             if i == line.pattern.len() - 1 && line.state == SequenceValidity::Unknown {
-                line.state = SequenceValidity::Incomplete;
-
                 let mut score: u64 = 0;
 
                 // Determine the closing characters required to complete the sequence

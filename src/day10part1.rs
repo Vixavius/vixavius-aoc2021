@@ -75,7 +75,7 @@ pub fn run() -> i128 {
                     }
                 } else if *c == '}' {
                     if *c == expected {
-                        stack.pop(); 
+                        stack.pop();
                     } else {
                         valid = false;
                         error_score += 1197;
